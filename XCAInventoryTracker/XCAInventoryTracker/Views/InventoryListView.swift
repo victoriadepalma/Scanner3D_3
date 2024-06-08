@@ -2,16 +2,16 @@
 //  InventoryListView.swift
 //  XCAInventoryTracker
 //
-//  Created by Alfian Losari on 30/07/23.
-//
+//  Created by Victoria De Palma
 
 import SwiftUI
 
+
 struct InventoryListView: View {
-    
     @StateObject var vm = InventoryListViewModel()
     @State var formType: FormType?
-    
+    @State private var showAuthView = false
+
     var body: some View {
         List {
             ForEach(vm.items) { item in
@@ -23,8 +23,16 @@ struct InventoryListView: View {
                     }
             }
         }
-        .navigationTitle("Scanner 3D")
+        .navigationTitle("Your 3D Scans")
+     
         .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showAuthView.toggle()
+                }) {
+                    Text("Log In")
+                }
+            }
             ToolbarItem(placement: .primaryAction) {
                 Button("+ Item") {
                     formType = .add
@@ -37,6 +45,11 @@ struct InventoryListView: View {
             }
             .presentationDetents([.fraction(0.85)])
             .interactiveDismissDisabled()
+        }
+        .sheet(isPresented: $showAuthView) {
+            NavigationStack {
+                AuthView()
+            }
         }
         .onAppear {
             vm.listenToItems()
