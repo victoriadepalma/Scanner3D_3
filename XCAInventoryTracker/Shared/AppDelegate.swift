@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  XCAInventoryTracker
 //
-//  Created by Alfian Losari on 30/07/23.
+//  Created by Victoria De Palma and Diana Silva
 //
 
 import FirebaseCore

@@ -2,7 +2,7 @@
 //  USDZItemProvider.swift
 //  XCAInventoryTrackerVision
 //
-//  Created by Alfian Losari on 31/07/23.
+//  Created by Victoria De Palma and Diana Silva
 //
 
 import FirebaseStorage

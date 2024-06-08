@@ -2,7 +2,7 @@
 //  AuthView.swift
 //  Login
 //
-//  Created by Victoria De Palma on 6/4/24.
+//  Created by Victoria De Palma and Diana Silva
 //
 
 import SwiftUI

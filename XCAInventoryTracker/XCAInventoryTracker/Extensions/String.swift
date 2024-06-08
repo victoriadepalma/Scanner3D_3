@@ -2,7 +2,7 @@
 //  String.swift
 //  SwiftUI-Auth
 //
-//  Created by Victoria De Palma
+//  Created by Victoria De Palma and Diana Silva
 //
 
 import Foundation

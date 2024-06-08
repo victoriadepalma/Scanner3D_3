@@ -2,7 +2,7 @@
 //  InventoryListView.swift
 //  XCAInventoryTracker
 //
-//  Created by Victoria De Palma
+//  Created by Victoria De Palma and Diana Silva
 
 import SwiftUI
 
