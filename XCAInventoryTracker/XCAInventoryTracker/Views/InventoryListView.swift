@@ -5,12 +5,15 @@
 //  Created by Victoria De Palma and Diana Silva
 
 import SwiftUI
+import FirebaseAuth
 
 
 struct InventoryListView: View {
     @StateObject var vm = InventoryListViewModel()
-    @State var formType: FormType?
-    @State private var showAuthView = false
+      @State var formType: FormType?
+      @State private var showAuthView = false
+      @StateObject private var appState = AppState()
+      @State private var userId: String = ""
 
     var body: some View {
         List {
@@ -33,6 +36,13 @@ struct InventoryListView: View {
                     Text("Log In")
                 }
             }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                       Button(action: {
+                           signOut()
+                       }) {
+                           Text("Sign Out")
+                       }
+                   }
             ToolbarItem(placement: .primaryAction) {
                 Button("+ Item") {
                     formType = .add
@@ -52,7 +62,33 @@ struct InventoryListView: View {
             }
         }
         .onAppear {
-            vm.listenToItems()
+                 Task {
+                     do {
+                         userId = try await fetchUserId()
+                         try await vm.listenToItems(appState: appState, userId: userId)
+                     } catch {
+                         print("Error fetching user ID or items: \(error.localizedDescription)")
+                     }
+                 }
+             }
+         }
+
+         private func fetchUserId() async throws -> String {
+             guard let currentUser = Auth.auth().currentUser else {
+                 throw FirebaseError.noUserFound
+             }
+             return currentUser.uid
+         }
+    
+    func signOut() {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            withAnimation {
+                appState.userID = "" // Update the userID in the InventoryListViewModel
+            }
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
         }
     }
 }
@@ -90,8 +126,12 @@ struct InventoryListItemView: View {
                     .font(.subheadline)
             }
         }
+        
     }
+    
 }
+
+
 
 #Preview {
     NavigationStack {

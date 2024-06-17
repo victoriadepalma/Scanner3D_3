@@ -13,8 +13,11 @@ struct InventoryItem: Identifiable, Codable, Equatable {
     var id = UUID().uuidString
     @ServerTimestamp var createdAt: Date?
     @ServerTimestamp var updatedAt: Date?
+
     var name: String
     var quantity: Int
+    var userId: String
+    
     var usdzLink: String?
     var usdzURL: URL? {
         
@@ -30,3 +33,5 @@ struct InventoryItem: Identifiable, Codable, Equatable {
     }
     
 }
+
+

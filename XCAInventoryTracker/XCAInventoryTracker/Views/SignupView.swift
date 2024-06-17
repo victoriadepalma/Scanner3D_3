@@ -99,7 +99,7 @@ struct SignupView: View {
                         self.currentShowingView = "login"
                     }
                 }) {
-                    Text("Already have an account?")
+                    Text("Already have an account? Login")
                         .foregroundColor(.gray)
                 }
                 

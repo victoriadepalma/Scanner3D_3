@@ -10,6 +10,7 @@ import FirebaseStorage
 import Foundation
 import SwiftUI
 import QuickLookThumbnailing
+import Firebase
 
 class InventoryFormViewModel: ObservableObject {
     
@@ -19,6 +20,7 @@ class InventoryFormViewModel: ObservableObject {
     let id: String
     @Published var name = ""
     @Published var quantity = 0
+
     @Published var usdzURL: URL?
     @Published var thumbnailURL: URL?
     
@@ -28,6 +30,7 @@ class InventoryFormViewModel: ObservableObject {
     @Published var uploadProgress: UploadProgress?
     @Published var showUSDZSource = false
     @Published var selectedUSDZSource: USDZSourceType?
+    @StateObject private var appState = AppState()
     
     let byteCountFormatter: ByteCountFormatter = {
         let f = ByteCountFormatter()
@@ -43,16 +46,20 @@ class InventoryFormViewModel: ObservableObject {
             return "Edit Item"
         }
     }
-    
+  
+
     init(formType: FormType = .add) {
         self.formType = formType
+      
         switch formType {
         case .add:
             id = UUID().uuidString
         case .edit(let item):
+            
             id = item.id
             name = item.name
             quantity = item.quantity
+      
             if let usdzURL = item.usdzURL {
                 self.usdzURL = usdzURL
             }
@@ -61,24 +68,32 @@ class InventoryFormViewModel: ObservableObject {
             }
         }
     }
-    
+    enum FirebaseError: Error {
+        case noUserFound
+    }
+  
     func save() throws {
         loadingState = .savingItem
-        
+
         defer { loadingState = .none }
-        
+
+        guard let userId = Auth.auth().currentUser?.uid else {
+            throw FirebaseError.noUserFound
+        }
+
         var item: InventoryItem
         switch formType {
         case .add:
-            item = .init(id: id, name: name, quantity: quantity)
+            item = .init(id: id, name: name, quantity: quantity, userId: userId) // Include userId
         case .edit(let inventoryItem):
             item = inventoryItem
             item.name = name
             item.quantity = quantity
+            item.userId = userId // Update userId
         }
         item.usdzLink = usdzURL?.absoluteString
         item.thumbnailLink = thumbnailURL?.absoluteString
-        
+
         do {
             try db.document("items/\(item.id)")
                 .setData(from: item)
@@ -216,4 +231,5 @@ struct UploadProgress {
     var totalUnitCount: Int64
     var completedUnitCount: Int64
 }
+
 
