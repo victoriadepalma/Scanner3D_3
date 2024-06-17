@@ -29,13 +29,13 @@ struct InventoryListView: View {
         .navigationTitle("Your 3D Scans")
      
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    showAuthView.toggle()
-                }) {
-                    Text("Log In")
-                }
-            }
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                Button(action: {
+//                    showAuthView.toggle()
+//                }) {
+//                    Text("Log In")
+//                }
+//            }
             ToolbarItem(placement: .navigationBarTrailing) {
                        Button(action: {
                            signOut()
