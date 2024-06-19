@@ -32,3 +32,4 @@ struct AuthView_Previews: PreviewProvider {
         AuthView()
     }
 }
+

@@ -11,6 +11,7 @@
 		427A4F062C0FC24F00BAFF44 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427A4F052C0FC24F00BAFF44 /* ContentView.swift */; };
 		427C1BC62BE02AD700DFA927 /* USDZScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 427C1BC52BE02AD700DFA927 /* USDZScanner */; };
 		42B2E7142C14E69C00C09225 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B2E7132C14E69C00C09225 /* SignupViewModel.swift */; };
+		42B2E7182C236C9600C09225 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B2E7172C236C9600C09225 /* EditProfileView.swift */; };
 		42D5817E2C012CDE0062549C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42D5817D2C012CDE0062549C /* GoogleService-Info.plist */; };
 		42D581802C0132290062549C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D5817F2C0132290062549C /* LoginView.swift */; };
 		42D581842C01334B0062549C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D581832C01334B0062549C /* String.swift */; };
@@ -52,6 +53,7 @@
 		42787C2D2BE0394E004FD5DF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		427A4F052C0FC24F00BAFF44 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		42B2E7132C14E69C00C09225 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		42B2E7172C236C9600C09225 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		42D5817D2C012CDE0062549C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../.Trash/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		42D5817F2C0132290062549C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		42D581832C01334B0062549C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				42D5817F2C0132290062549C /* LoginView.swift */,
 				42D581852C0134B20062549C /* SignupView.swift */,
 				42B2E7132C14E69C00C09225 /* SignupViewModel.swift */,
+				42B2E7172C236C9600C09225 /* EditProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42B2E7182C236C9600C09225 /* EditProfileView.swift in Sources */,
 				8B74F3A82A7BC58B0046B6B0 /* AppDelegate.swift in Sources */,
 				8BFA32042A767AFF00DAFBFB /* XCAInventoryTrackerApp.swift in Sources */,
 				42D581882C01352B0062549C /* AuthView.swift in Sources */,

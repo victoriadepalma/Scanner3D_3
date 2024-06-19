@@ -8,6 +8,7 @@
 import SwiftUI
 import FirebaseAuth
 
+
 struct LoginView: View {
     @Binding var currentShowingView: String
     @AppStorage("uid") var userID: String = ""

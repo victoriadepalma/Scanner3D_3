@@ -7,12 +7,18 @@
 
 import SwiftUI
 import FirebaseAuth
+import FirebaseFirestore
 
 struct SignupView: View {
+    @State private var firstName: String = ""
+    @State private var lastName: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
     @AppStorage("uid") var userID: String = ""
     @Binding var currentShowingView: String
+    
+    
+  
     
     private func isValidPassword(_ password: String) -> Bool {
         // minimum 6 characters long
@@ -41,6 +47,32 @@ struct SignupView: View {
                 .padding(.top)
                 
                 Spacer()
+                
+                HStack {
+                       Image(systemName: "person")
+                       TextField("First Name", text: $firstName)
+                   }
+                   .foregroundColor(.white)
+                   .padding()
+                   .overlay(
+                       RoundedRectangle(cornerRadius: 10)
+                           .stroke(lineWidth: 2)
+                           .foregroundColor(.white)
+                   )
+                   .padding()
+
+                   HStack {
+                       Image(systemName: "person")
+                       TextField("Last Name", text: $lastName)
+                   }
+                   .foregroundColor(.white)
+                   .padding()
+                   .overlay(
+                       RoundedRectangle(cornerRadius: 10)
+                           .stroke(lineWidth: 2)
+                           .foregroundColor(.white)
+                   )
+                   .padding()
                 
                 HStack {
                     Image(systemName: "mail")
@@ -108,22 +140,33 @@ struct SignupView: View {
                 
                 
                 Button {
-                    
-              
                     Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                        
                         if let error = error {
                             print(error)
                             return
                         }
-                        
+
                         if let authResult = authResult {
                             print(authResult.user.uid)
                             userID = authResult.user.uid
+
+                            // Save the first name and last name to Firestore
+                            let userData: [String: Any] = [
+                                "firstName": firstName,
+                                "lastName": lastName,
+                                "email": email
+                            ]
                             
+                            let db = Firestore.firestore()
+                            db.collection("users").document(authResult.user.uid).setData(userData) { error in
+                                if let error = error {
+                                    print("Error saving user data: \(error)")
+                                } else {
+                                    print("User data saved successfully")
+                                }
+                            }
                         }
                     }
-                    
                 } label: {
                     Text("Create New Account")
                         .foregroundColor(.black)

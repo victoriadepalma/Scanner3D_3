@@ -10,10 +10,12 @@ import FirebaseAuth
 
 struct InventoryListView: View {
     @StateObject var vm = InventoryListViewModel()
-      @State var formType: FormType?
-      @State private var showAuthView = false
-      @StateObject private var appState = AppState()
-      @State private var userId: String = ""
+     @State var formType: FormType?
+     @State private var showAuthView = false
+     @StateObject private var appState = AppState()
+     @State private var userId: String = ""
+     @State private var showEditProfileSheet = false
+    @State private var showSignOutAlert = false
 
     var body: some View {
         List {
@@ -27,27 +29,47 @@ struct InventoryListView: View {
             }
         }
         .navigationTitle("Your 3D Scans")
-     
+        
         .toolbar {
-//            ToolbarItem(placement: .navigationBarTrailing) {
-//                Button(action: {
-//                    showAuthView.toggle()
-//                }) {
-//                    Text("Log In")
-//                }
-//            }
+            //            ToolbarItem(placement: .navigationBarTrailing) {
+            //                Button(action: {
+            //                    showAuthView.toggle()
+            //                }) {
+            //                    Text("Log In")
+            //                }
+            //            }
             ToolbarItem(placement: .navigationBarTrailing) {
-                       Button(action: {
-                           signOut()
-                       }) {
-                           Text("Sign Out")
-                       }
-                   }
+                Button(action: {
+                    showEditProfileSheet.toggle()
+                }) {
+                    Text("Edit Profile")
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showSignOutAlert = true
+                }) {
+                    Text("Sign Out")
+                }
+                .alert(isPresented: $showSignOutAlert) {
+                    Alert(
+                        title: Text("Sign Out"),
+                        message: Text("Are you sure you want to sign out?"),
+                        primaryButton: .destructive(Text("Sign Out")) {
+                            signOut()
+                        },
+                        secondaryButton: .cancel()
+                    )
+                }
+            }
             ToolbarItem(placement: .primaryAction) {
                 Button("+ Item") {
                     formType = .add
                 }
             }
+        }
+        .sheet(isPresented: $showEditProfileSheet) {
+            EditProfileView(userId: userId)
         }
         .sheet(item: $formType) { type in
             NavigationStack {
@@ -62,16 +84,17 @@ struct InventoryListView: View {
             }
         }
         .onAppear {
-                 Task {
-                     do {
-                         userId = try await fetchUserId()
-                         try await vm.listenToItems(appState: appState, userId: userId)
-                     } catch {
-                         print("Error fetching user ID or items: \(error.localizedDescription)")
-                     }
-                 }
-             }
-         }
+            Task {
+                do {
+                    userId = try await fetchUserId()
+                    try await vm.listenToItems(appState: appState, userId: userId)
+                } catch {
+                    print("Error fetching user ID or items: (error.localizedDescription)")
+                }
+            }
+            }
+        }
+        
 
          private func fetchUserId() async throws -> String {
              guard let currentUser = Auth.auth().currentUser else {
