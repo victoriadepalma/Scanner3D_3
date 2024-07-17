@@ -2,7 +2,7 @@
 //  EditProfileView.swift
 //  XCAInventoryTracker
 //
-//  Created by Victoria De Palma on 6/19/24.
+//  Created by Victoria De Palma and Diana Silva
 //
 
 import SwiftUI

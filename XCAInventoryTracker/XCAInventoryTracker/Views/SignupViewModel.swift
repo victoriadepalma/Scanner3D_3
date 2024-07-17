@@ -2,7 +2,7 @@
 //  SignupViewModel.swift
 //  XCAInventoryTracker
 //
-//  Created by Victoria De Palma on 6/8/24.
+//  Created by Victoria De Palma and Diana Silva
 //
 
 import SwiftUI

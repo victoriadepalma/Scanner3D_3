@@ -8,6 +8,7 @@
 import FirebaseFirestoreSwift
 import Foundation
 
+
 struct InventoryItem: Identifiable, Codable, Equatable {
     
     var id = UUID().uuidString
@@ -20,10 +21,8 @@ struct InventoryItem: Identifiable, Codable, Equatable {
     
     var usdzLink: String?
     var usdzURL: URL? {
-        
         guard let usdzLink else { return nil }
         return URL(string: usdzLink)
-        
     }
     
     var thumbnailLink: String?
@@ -31,7 +30,21 @@ struct InventoryItem: Identifiable, Codable, Equatable {
         guard let thumbnailLink else { return nil }
         return URL(string: thumbnailLink)
     }
-    
+}
+
+extension InventoryItem {
+    func asDictionary() -> [String: Any] {
+        return [
+            "id": id,
+            "createdAt": createdAt ?? Date(),
+            "updatedAt": updatedAt ?? Date(),
+            "name": name,
+            "quantity": quantity,
+            "userId": userId,
+            "usdzLink": usdzLink ?? "",
+            "thumbnailLink": thumbnailLink ?? ""
+        ]
+    }
 }
 
 

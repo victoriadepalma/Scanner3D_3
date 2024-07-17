@@ -26,7 +26,7 @@ class InventoryListViewModel: ObservableObject {
             .limit(toLast: 100)
             .addSnapshotListener { snapshot, error in
                 guard let snapshot else {
-                    print("Error fetching snapshot: \(error?.localizedDescription ?? "error")")
+                    print("Error fetching snapshottt: \(error?.localizedDescription ?? "error")")
                     return
                 }
                 let docs = snapshot.documents

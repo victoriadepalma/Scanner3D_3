@@ -1,4 +1,5 @@
 
+
 //  SignupView.swift
 //  Login
 //
@@ -16,9 +17,10 @@ struct SignupView: View {
     @State private var password: String = ""
     @AppStorage("uid") var userID: String = ""
     @Binding var currentShowingView: String
+    @State private var showAlert = false
+    @State private var passwordErrorText = ""
     
     
-  
     
     private func isValidPassword(_ password: String) -> Bool {
         // minimum 6 characters long
@@ -28,6 +30,10 @@ struct SignupView: View {
         let passwordRegex = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&])(?=.*[A-Z]).{6,}$")
         
         return passwordRegex.evaluate(with: password)
+    }
+    
+    private func areAllFieldsFilled() -> Bool {
+        return !firstName.isEmpty && !lastName.isEmpty && !email.isEmpty && !password.isEmpty
     }
     
     var body: some View {
@@ -49,30 +55,30 @@ struct SignupView: View {
                 Spacer()
                 
                 HStack {
-                       Image(systemName: "person")
-                       TextField("First Name", text: $firstName)
-                   }
-                   .foregroundColor(.white)
-                   .padding()
-                   .overlay(
-                       RoundedRectangle(cornerRadius: 10)
-                           .stroke(lineWidth: 2)
-                           .foregroundColor(.white)
-                   )
-                   .padding()
-
-                   HStack {
-                       Image(systemName: "person")
-                       TextField("Last Name", text: $lastName)
-                   }
-                   .foregroundColor(.white)
-                   .padding()
-                   .overlay(
-                       RoundedRectangle(cornerRadius: 10)
-                           .stroke(lineWidth: 2)
-                           .foregroundColor(.white)
-                   )
-                   .padding()
+                    Image(systemName: "person")
+                    TextField("First Name", text: $firstName)
+                }
+                .foregroundColor(.white)
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(lineWidth: 2)
+                        .foregroundColor(.white)
+                )
+                .padding()
+                
+                HStack {
+                    Image(systemName: "person")
+                    TextField("Last Name", text: $lastName)
+                }
+                .foregroundColor(.white)
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(lineWidth: 2)
+                        .foregroundColor(.white)
+                )
+                .padding()
                 
                 HStack {
                     Image(systemName: "mail")
@@ -102,29 +108,43 @@ struct SignupView: View {
                 
                 
                 HStack {
-                    Image(systemName: "lock")
-                    SecureField("Password", text: $password)
+                                Image(systemName: "lock")
+                                SecureField("Password", text: $password)
+                                
+                                Spacer()
+                                
+                                if(password.count != 0) {
+                                    if !isValidPassword(password) {
+                                        Image(systemName: "xmark")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.red)
+                                    } else {
+                                        Image(systemName: "checkmark")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.green)
+                                    }
+                                }
+                            }
+                            .foregroundColor(.white)
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(lineWidth: 2)
+                                    .foregroundColor(.white)
+                            )
+                            .padding()
+                            
+                            if !isValidPassword(password) {
+                                Text("Password must be at least 6 characters long, contain 1 uppercase letter, and 1 special character.")
+                                    .font(.caption)
+                                    .foregroundColor(.red)
+                                    .padding(.top, 8)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.horizontal, 16) // Añade 16 puntos de padding a los lados
+                                    .padding(.bottom, 8)
+                            }
+              
                     
-                    Spacer()
-                    
-                    if(password.count != 0) {
-                        
-                        Image(systemName: isValidPassword(password) ? "checkmark" : "xmark")
-                            .fontWeight(.bold)
-                            .foregroundColor(isValidPassword(password) ? .green : .red)
-                    }
-                    
-                }
-                .foregroundColor(.white)
-                .padding()
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(lineWidth: 2)
-                        .foregroundColor(.white)
-                    
-                )
-                .padding()
-                
                 
                 Button(action: {
                     withAnimation {
@@ -140,29 +160,35 @@ struct SignupView: View {
                 
                 
                 Button {
-                    Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                        if let error = error {
-                            print(error)
-                            return
-                        }
-
-                        if let authResult = authResult {
-                            print(authResult.user.uid)
-                            userID = authResult.user.uid
-
-                            // Save the first name and last name to Firestore
-                            let userData: [String: Any] = [
-                                "firstName": firstName,
-                                "lastName": lastName,
-                                "email": email
-                            ]
+                    // Check if all fields are filled
+                    if firstName.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty {
+                        // Display an alert if any field is empty
+                        showAlert = true
+                    } else {
+                        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                            if let error = error {
+                                print(error)
+                                return
+                            }
                             
-                            let db = Firestore.firestore()
-                            db.collection("users").document(authResult.user.uid).setData(userData) { error in
-                                if let error = error {
-                                    print("Error saving user data: \(error)")
-                                } else {
-                                    print("User data saved successfully")
+                            if let authResult = authResult {
+                                print(authResult.user.uid)
+                                userID = authResult.user.uid
+                                
+                                // Save the first name and last name to Firestore
+                                let userData: [String: Any] = [
+                                    "firstName": firstName,
+                                    "lastName": lastName,
+                                    "email": email
+                                ]
+                                
+                                let db = Firestore.firestore()
+                                db.collection("users").document(authResult.user.uid).setData(userData) { error in
+                                    if let error = error {
+                                        print("Error saving user data: \(error)")
+                                    } else {
+                                        print("User data saved successfully")
+                                    }
                                 }
                             }
                         }
@@ -172,21 +198,22 @@ struct SignupView: View {
                         .foregroundColor(.black)
                         .font(.title3)
                         .bold()
-                    
                         .frame(maxWidth: .infinity)
                         .padding()
-                    
                         .background(
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(Color.white)
                         )
                         .padding(.horizontal)
                 }
-                
-                
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("Missing Fields"),
+                        message: Text("Please fill in all the required fields."),
+                        dismissButton: .default(Text("OK"))
+                    )
+                }
             }
-            
         }
     }
 }
-
