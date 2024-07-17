@@ -15,6 +15,7 @@ struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var showErrorModal = false
+    @State private var errorMessage: String = ""
     
     private func isValidPassword(_ password: String) -> Bool {
         // minimum 6 characters long
@@ -94,44 +95,46 @@ struct LoginView: View {
                 Spacer()
                 
                 Button {
-                    if email.isEmpty || password.isEmpty {
-                        showErrorModal = true
-                    } else {
-                        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-                            if let error = error {
-                                print(error)
-                                return
-                            }
-                            
-                            if let authResult = authResult {
-                                print(authResult.user.uid)
-                                withAnimation {
-                                    userID = authResult.user.uid
+                                    if email.isEmpty || password.isEmpty {
+                                        showErrorModal = true
+                                        errorMessage = "Please fill in all the required fields."
+                                    } else {
+                                        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+                                            if let error = error {
+                                                showErrorModal = true
+                                                errorMessage = "Incorrect email or password"
+                                                return
+                                            }
+                                            
+                                            if let authResult = authResult {
+                                                print(authResult.user.uid)
+                                                withAnimation {
+                                                    userID = authResult.user.uid
+                                                }
+                                            }
+                                        }
+                                    }
+                                } label: {
+                                    Text("Sign In")
+                                        .foregroundColor(.white)
+                                        .font(.title3)
+                                        .bold()
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .fill(Color.black)
+                                        )
+                                        .padding(.horizontal)
                                 }
                             }
                         }
+                        .alert(isPresented: $showErrorModal) {
+                            Alert(
+                                title: Text("Error"),
+                                message: Text(errorMessage),
+                                dismissButton: .default(Text("OK"))
+                            )
+                        }
                     }
-                } label: {
-                    Text("Sign In")
-                        .foregroundColor(.white)
-                        .font(.title3)
-                        .bold()
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.black)
-                        )
-                        .padding(.horizontal)
                 }
-            }
-        }
-        .alert(isPresented: $showErrorModal) {
-            Alert(
-                title: Text("Missing Fields"),
-                message: Text("Please fill in all the required fields."),
-                dismissButton: .default(Text("OK"))
-            )
-        }
-    }
-}
