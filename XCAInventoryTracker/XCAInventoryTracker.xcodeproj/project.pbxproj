@@ -7,12 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03526FE72C470B3E00BF1CA2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03526FE62C470B3E00BF1CA2 /* GoogleService-Info.plist */; };
+		03526FE92C48435B00BF1CA2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03526FE82C48435B00BF1CA2 /* HomeView.swift */; };
+		0352702E2C49C35200BF1CA2 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 035270252C49C35000BF1CA2 /* SF-Pro-Rounded-Bold.otf */; };
+		0352702F2C49C35200BF1CA2 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 035270252C49C35000BF1CA2 /* SF-Pro-Rounded-Bold.otf */; };
+		035270302C49C35200BF1CA2 /* SF-Pro-Rounded-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 035270262C49C35100BF1CA2 /* SF-Pro-Rounded-Thin.otf */; };
+		035270312C49C35200BF1CA2 /* SF-Pro-Rounded-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 035270262C49C35100BF1CA2 /* SF-Pro-Rounded-Thin.otf */; };
+		035270322C49C35200BF1CA2 /* SF-Pro-Rounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 035270272C49C35100BF1CA2 /* SF-Pro-Rounded-Light.otf */; };
+		035270332C49C35200BF1CA2 /* SF-Pro-Rounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 035270272C49C35100BF1CA2 /* SF-Pro-Rounded-Light.otf */; };
+		035270342C49C35200BF1CA2 /* SF-Pro-Rounded-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 035270282C49C35100BF1CA2 /* SF-Pro-Rounded-Semibold.otf */; };
+		035270352C49C35200BF1CA2 /* SF-Pro-Rounded-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 035270282C49C35100BF1CA2 /* SF-Pro-Rounded-Semibold.otf */; };
+		035270362C49C35200BF1CA2 /* SF-Pro-Rounded-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 035270292C49C35100BF1CA2 /* SF-Pro-Rounded-Ultralight.otf */; };
+		035270372C49C35200BF1CA2 /* SF-Pro-Rounded-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 035270292C49C35100BF1CA2 /* SF-Pro-Rounded-Ultralight.otf */; };
+		035270382C49C35200BF1CA2 /* SF-Pro-Rounded-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0352702A2C49C35100BF1CA2 /* SF-Pro-Rounded-Regular.otf */; };
+		035270392C49C35200BF1CA2 /* SF-Pro-Rounded-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0352702A2C49C35100BF1CA2 /* SF-Pro-Rounded-Regular.otf */; };
+		0352703A2C49C35200BF1CA2 /* SF-Pro-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0352702B2C49C35100BF1CA2 /* SF-Pro-Rounded-Heavy.otf */; };
+		0352703B2C49C35200BF1CA2 /* SF-Pro-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0352702B2C49C35100BF1CA2 /* SF-Pro-Rounded-Heavy.otf */; };
+		0352703C2C49C35200BF1CA2 /* SF-Pro-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0352702C2C49C35100BF1CA2 /* SF-Pro-Rounded-Medium.otf */; };
+		0352703D2C49C35200BF1CA2 /* SF-Pro-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0352702C2C49C35100BF1CA2 /* SF-Pro-Rounded-Medium.otf */; };
+		0352703E2C49C35200BF1CA2 /* SF-Pro-Rounded-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0352702D2C49C35200BF1CA2 /* SF-Pro-Rounded-Black.otf */; };
+		0352703F2C49C35200BF1CA2 /* SF-Pro-Rounded-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0352702D2C49C35200BF1CA2 /* SF-Pro-Rounded-Black.otf */; };
 		427A4F022C0FC01600BAFF44 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 427A4F012C0FC01600BAFF44 /* FirebaseAuth */; };
 		427A4F062C0FC24F00BAFF44 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427A4F052C0FC24F00BAFF44 /* ContentView.swift */; };
 		427C1BC62BE02AD700DFA927 /* USDZScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 427C1BC52BE02AD700DFA927 /* USDZScanner */; };
 		42B2E7142C14E69C00C09225 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B2E7132C14E69C00C09225 /* SignupViewModel.swift */; };
 		42B2E7182C236C9600C09225 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B2E7172C236C9600C09225 /* EditProfileView.swift */; };
-		42D5817E2C012CDE0062549C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42D5817D2C012CDE0062549C /* GoogleService-Info.plist */; };
 		42D581802C0132290062549C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D5817F2C0132290062549C /* LoginView.swift */; };
 		42D581842C01334B0062549C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D581832C01334B0062549C /* String.swift */; };
 		42D581862C0134B20062549C /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D581852C0134B20062549C /* SignupView.swift */; };
@@ -50,11 +69,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03526FE62C470B3E00BF1CA2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		03526FE82C48435B00BF1CA2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		035270252C49C35000BF1CA2 /* SF-Pro-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Bold.otf"; sourceTree = "<group>"; };
+		035270262C49C35100BF1CA2 /* SF-Pro-Rounded-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Thin.otf"; sourceTree = "<group>"; };
+		035270272C49C35100BF1CA2 /* SF-Pro-Rounded-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Light.otf"; sourceTree = "<group>"; };
+		035270282C49C35100BF1CA2 /* SF-Pro-Rounded-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Semibold.otf"; sourceTree = "<group>"; };
+		035270292C49C35100BF1CA2 /* SF-Pro-Rounded-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Ultralight.otf"; sourceTree = "<group>"; };
+		0352702A2C49C35100BF1CA2 /* SF-Pro-Rounded-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Regular.otf"; sourceTree = "<group>"; };
+		0352702B2C49C35100BF1CA2 /* SF-Pro-Rounded-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Heavy.otf"; sourceTree = "<group>"; };
+		0352702C2C49C35100BF1CA2 /* SF-Pro-Rounded-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Medium.otf"; sourceTree = "<group>"; };
+		0352702D2C49C35200BF1CA2 /* SF-Pro-Rounded-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Black.otf"; sourceTree = "<group>"; };
 		42787C2D2BE0394E004FD5DF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		427A4F052C0FC24F00BAFF44 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		42B2E7132C14E69C00C09225 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		42B2E7172C236C9600C09225 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
-		42D5817D2C012CDE0062549C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../.Trash/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		42D5817F2C0132290062549C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		42D581832C01334B0062549C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		42D581852C0134B20062549C /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
@@ -112,6 +141,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		035270242C49C32600BF1CA2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0352702D2C49C35200BF1CA2 /* SF-Pro-Rounded-Black.otf */,
+				035270252C49C35000BF1CA2 /* SF-Pro-Rounded-Bold.otf */,
+				0352702B2C49C35100BF1CA2 /* SF-Pro-Rounded-Heavy.otf */,
+				035270272C49C35100BF1CA2 /* SF-Pro-Rounded-Light.otf */,
+				0352702C2C49C35100BF1CA2 /* SF-Pro-Rounded-Medium.otf */,
+				0352702A2C49C35100BF1CA2 /* SF-Pro-Rounded-Regular.otf */,
+				035270282C49C35100BF1CA2 /* SF-Pro-Rounded-Semibold.otf */,
+				035270262C49C35100BF1CA2 /* SF-Pro-Rounded-Thin.otf */,
+				035270292C49C35100BF1CA2 /* SF-Pro-Rounded-Ultralight.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		42D581822C0133320062549C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +202,7 @@
 				42D581852C0134B20062549C /* SignupView.swift */,
 				42B2E7132C14E69C00C09225 /* SignupViewModel.swift */,
 				42B2E7172C236C9600C09225 /* EditProfileView.swift */,
+				03526FE82C48435B00BF1CA2 /* HomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -190,6 +236,7 @@
 		8BFA31F72A767AFF00DAFBFB = {
 			isa = PBXGroup;
 			children = (
+				035270242C49C32600BF1CA2 /* Fonts */,
 				8B74F3A62A7BC58B0046B6B0 /* Shared */,
 				8BFA32022A767AFF00DAFBFB /* XCAInventoryTracker */,
 				8BFA32162A767B3000DAFBFB /* XCAInventoryTrackerVision */,
@@ -211,8 +258,8 @@
 		8BFA32022A767AFF00DAFBFB /* XCAInventoryTracker */ = {
 			isa = PBXGroup;
 			children = (
+				03526FE62C470B3E00BF1CA2 /* GoogleService-Info.plist */,
 				42D581822C0133320062549C /* Extensions */,
-				42D5817D2C012CDE0062549C /* GoogleService-Info.plist */,
 				8B74F3BA2A7BC58B0046B6B0 /* Observables */,
 				8B74F3B52A7BC58B0046B6B0 /* Views */,
 				8B74F3A42A7BC56D0046B6B0 /* Info.plist */,
@@ -368,8 +415,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BFA320B2A767B0200DAFBFB /* Preview Assets.xcassets in Resources */,
-				42D5817E2C012CDE0062549C /* GoogleService-Info.plist in Resources */,
+				035270322C49C35200BF1CA2 /* SF-Pro-Rounded-Light.otf in Resources */,
+				0352703E2C49C35200BF1CA2 /* SF-Pro-Rounded-Black.otf in Resources */,
+				0352702E2C49C35200BF1CA2 /* SF-Pro-Rounded-Bold.otf in Resources */,
 				8BFA32082A767B0200DAFBFB /* Assets.xcassets in Resources */,
+				035270302C49C35200BF1CA2 /* SF-Pro-Rounded-Thin.otf in Resources */,
+				035270382C49C35200BF1CA2 /* SF-Pro-Rounded-Regular.otf in Resources */,
+				0352703A2C49C35200BF1CA2 /* SF-Pro-Rounded-Heavy.otf in Resources */,
+				0352703C2C49C35200BF1CA2 /* SF-Pro-Rounded-Medium.otf in Resources */,
+				035270342C49C35200BF1CA2 /* SF-Pro-Rounded-Semibold.otf in Resources */,
+				035270362C49C35200BF1CA2 /* SF-Pro-Rounded-Ultralight.otf in Resources */,
+				03526FE72C470B3E00BF1CA2 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,8 +433,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0352702F2C49C35200BF1CA2 /* SF-Pro-Rounded-Bold.otf in Resources */,
+				0352703F2C49C35200BF1CA2 /* SF-Pro-Rounded-Black.otf in Resources */,
+				0352703D2C49C35200BF1CA2 /* SF-Pro-Rounded-Medium.otf in Resources */,
+				035270352C49C35200BF1CA2 /* SF-Pro-Rounded-Semibold.otf in Resources */,
+				035270332C49C35200BF1CA2 /* SF-Pro-Rounded-Light.otf in Resources */,
 				8BFA32232A767B3300DAFBFB /* Preview Assets.xcassets in Resources */,
 				8BFA32202A767B3300DAFBFB /* Assets.xcassets in Resources */,
+				0352703B2C49C35200BF1CA2 /* SF-Pro-Rounded-Heavy.otf in Resources */,
+				035270392C49C35200BF1CA2 /* SF-Pro-Rounded-Regular.otf in Resources */,
+				035270372C49C35200BF1CA2 /* SF-Pro-Rounded-Ultralight.otf in Resources */,
+				035270312C49C35200BF1CA2 /* SF-Pro-Rounded-Thin.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +467,7 @@
 				8B74F3B72A7BC58B0046B6B0 /* InventoryListView.swift in Sources */,
 				42B2E7142C14E69C00C09225 /* SignupViewModel.swift in Sources */,
 				427A4F062C0FC24F00BAFF44 /* ContentView.swift in Sources */,
+				03526FE92C48435B00BF1CA2 /* HomeView.swift in Sources */,
 				42D581862C0134B20062549C /* SignupView.swift in Sources */,
 				8B74F3B92A7BC58B0046B6B0 /* InventoryFormView.swift in Sources */,
 			);
