@@ -23,4 +23,4 @@ AR Realtime Inventory Tracker visionOS & iOS App built with seamless Augmented R
 ## YouTube Tutorial
 You can check the full video tutorial on building this from scratch.
 
-[YouTube](https://youtu.be/DxVmeVf0Wwg)
+[YouTube](https://youtu.be/DxVmeVf0Wwg)# 3DScanner
