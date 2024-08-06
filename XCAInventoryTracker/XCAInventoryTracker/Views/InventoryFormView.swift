@@ -43,15 +43,18 @@ struct InventoryFormView: View {
                                 vm.error = error.localizedDescription
                             }
                         }
-                    }
+                    }.font(.custom("SFProRounded-Regular", size: 17))
                 }
             }
         }
+        .background(Color.white) // Set the background to white
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel") {
                     dismiss()
                 }
+                .font(.custom("SFProRounded-Bold", size: 17)) // Set font to SFProRounded-Bold
+                .foregroundColor(Color(red: 213/255, green: 90/255, blue: 90/255)) // Color D55A5A
                 .disabled(vm.loadingState != .none)
             }
             
@@ -62,6 +65,8 @@ struct InventoryFormView: View {
                         dismiss()
                     } catch {}
                 }
+                .font(.custom("SFProRounded-Bold", size: 17)) // Set font to SFProRounded-Bold
+                .foregroundColor(.black) // Set color to black
                 .disabled(vm.loadingState != .none || vm.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
         }
@@ -105,13 +110,16 @@ struct InventoryFormView: View {
     var inputSection: some View {
         Section {
             TextField("Name", text: $vm.name)
-            Stepper("Quantity: \(vm.quantity)", value: $vm.quantity)
+                .font(.custom("SFProRounded-Regular", size: 17))
+            
         }
         .disabled(vm.loadingState != .none)
     }
     
     var arSection: some View {
-        Section("AR Model") {
+        Section(header: Text("AR Model")
+            .font(.custom("SFProRounded-Regular", size: 14)) // Set font to SFProRounded-Regular
+        ) {
             if let thumbnailURL = vm.thumbnailURL {
                 AsyncImage(url: thumbnailURL) { phase in
                     switch phase {
@@ -138,12 +146,14 @@ struct InventoryFormView: View {
                     HStack {
                         Image(systemName: "arkit").imageScale(.large)
                         Text("View")
+                            .font(.custom("SFProRounded-Regular", size: 17)) // Set font to SFProRounded-Bold
                     }
                 }
                 
                 Button("Delete USDZ", role: .destructive) {
                     Task { await vm.deleteUSDZ() }
                 }
+                .font(.custom("SFProRounded-Regular", size: 17)) // Set font to SFProRounded-Bold
                 
             } else {
                 Button {
@@ -152,6 +162,7 @@ struct InventoryFormView: View {
                     HStack {
                         Image(systemName: "arkit").imageScale(.large)
                         Text("Add USDZ")
+                            .font(.custom("SFProRounded-Regular", size: 17)) // Set font to SFProRounded-Regular
                     }
                 }
             }
