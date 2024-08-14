@@ -22,7 +22,6 @@ struct HomeView: View {
                     VStack {
                         Spacer()
                         
-                    
                         Image("naraja-sofa-png")
                             .resizable()
                             .scaledToFit()
@@ -32,9 +31,7 @@ struct HomeView: View {
                             )
                             .frame(maxWidth: .infinity)
                         
-         
                         HStack {
-                       
                             VStack(alignment: .leading, spacing: 0) {
                                 Text("Scan,")
                                     .font(.custom("SFProRounded-Bold", size: min(geometry.size.width, geometry.size.height) * 0.08))
@@ -50,20 +47,15 @@ struct HomeView: View {
                             
                             Spacer()
                             
-                            
                             NavigationLink(destination: InventoryListView()) {
                                 Circle()
-                                    .fill(Color.white)
+                                    .fill(Color(red: 254/255, green: 119/255, blue: 20/255)) // Color FE7714
                                     .frame(width: geometry.size.width * 0.2, height: geometry.size.width * 0.2)
                                     .overlay(
-                                        Circle()
-                                            .stroke(Color.black, lineWidth: 1)
-                                    )
-                                    .overlay(
-                                        Image("flecha")
+                                        Image("flecha1")
                                             .resizable()
                                             .scaledToFit()
-                                            .frame(width: geometry.size.width * 0.1, height: geometry.size.width * 0.1) 
+                                            .frame(width: geometry.size.width * 0.1, height: geometry.size.width * 0.1)
                                     )
                             }
                             .padding(.trailing, 20)

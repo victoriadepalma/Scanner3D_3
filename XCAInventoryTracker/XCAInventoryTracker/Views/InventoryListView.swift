@@ -24,111 +24,110 @@ struct InventoryListView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                // Rectángulo superior
-                GeometryReader { geometry in
-                    Rectangle()
-                        .fill(Color(red: 243/255, green: 239/255, blue: 227/255)) // Color F3EFE3
-                        .cornerRadius(10)
-                        .frame(width: geometry.size.width * 0.9, height: 131) // Tamaño responsive
-                        .overlay(
-                            HStack {
-                                VStack(alignment: .leading, spacing: 2) { // Espacio reducido entre los textos
-                                    Text("Capture Your")
-                                        .font(.custom("SFProRounded-Bold", size: 25))
-                                        .foregroundColor(Color(red: 5/255, green: 4/255, blue: 4/255)) // Color 050404
-                                    Text("World in 3D")
-                                        .font(.custom("SFProRounded-Bold", size: 25))
-                                        .foregroundColor(Color(red: 5/255, green: 4/255, blue: 4/255)) // Color 050404
-                                }
-                                .padding(.leading, 20) // Padding para el texto dentro del rectángulo
-                                
-                                Spacer() // Espacio flexible que empuja el contenido hacia la izquierda
+            ScrollView { // Added ScrollView here
+                VStack(spacing: 0) {
+                    // Rectángulo superior
+                    GeometryReader { geometry in
+                        Rectangle()
+                            .fill(Color(red: 243/255, green: 239/255, blue: 227/255)) // Color F3EFE3
+                            .cornerRadius(10)
+                            .frame(width: geometry.size.width * 0.9, height: 131) // Tamaño responsive
+                            .overlay(
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 2) { // Espacio reducido entre los textos
+                                        Text("Capture Your")
+                                            .font(.custom("SFProRounded-Bold", size: 25))
+                                            .foregroundColor(Color(red: 5/255, green: 4/255, blue: 4/255)) // Color 050404
+                                        Text("World in 3D")
+                                            .font(.custom("SFProRounded-Bold", size: 25))
+                                            .foregroundColor(Color(red: 5/255, green: 4/255, blue: 4/255)) // Color 050404
+                                    }
+                                    .padding(.leading, 20) // Padding para el texto dentro del rectángulo
+                                    
+                                    Spacer() // Espacio flexible que empuja el contenido hacia la izquierda
 
-                                Image("sofa") // Imagen desde los Assets
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit) // Ajuste de aspecto de la imagen
-                                    .frame(width: 160, height: 146) // Tamaño de la imagen ajustado
-                                    .padding(.trailing, 20) // Padding desde el borde derecho del rectángulo
-                            }
-                            .frame(maxWidth: .infinity, maxHeight: .infinity) // Alineación y tamaño
-                        )
-                        .padding(.top, 20) // Espacio desde la parte superior de la pantalla
-                        .padding(.horizontal, 20) // Espacio desde los lados de la pantalla
-                }
-                .frame(height: 131) // Asegura que la altura esté bien definida
-                
-                // Espacio adicional para separar el botón del rectángulo
-                Spacer().frame(height: 30) // Ajusta la altura según sea necesario
-                
-                // Botón "+ Item"
-                HStack {
-                    // Espacio flexible reducido para mover el botón a la izquierda
-                    Spacer(minLength: 20)
-                    Button(action: {
-                        formType = .add
-                    }) {
-                        ZStack {
-                            Circle()
-                                .fill(Color.white)
-                                .frame(width: 50, height: 50) // Tamaño del botón circular
-                                .overlay(
-                                    Circle()
-                                        .stroke(Color(red: 233/255, green: 233/255, blue: 233/255), lineWidth: 1) // Borde en color E9E9E9
-                                )
-                            
-                            Image("mas") // Imagen de assets llamada "mas"
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 24, height: 24) // Tamaño reducido de la imagen
-                        }
-                    }
-                    .padding(.trailing, 20) // Ajusta el padding a la derecha si es necesario
-                }
-                
-                // Contenido de la cuadrícula
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(vm.items) { item in
-                            InventoryListItemView(item: item)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    formType = .edit(item)
+                                    Image("sofa") // Imagen desde los Assets
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit) // Ajuste de aspecto de la imagen
+                                        .frame(width: 160, height: 146) // Tamaño de la imagen ajustado
+                                        .padding(.trailing, 20) // Padding desde el borde derecho del rectángulo
                                 }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity) // Alineación y tamaño
+                            )
+                            .padding(.top, 20) // Espacio desde la parte superior de la pantalla
+                            .padding(.horizontal, 20) // Espacio desde los lados de la pantalla
+                    }
+                    .frame(height: 131) // Asegura que la altura esté bien definida
+                    
+                    // Espacio adicional para separar el botón del rectángulo
+                    Spacer().frame(height: 30) // Ajusta la altura según sea necesario
+                    
+                    // Botón "+ Item"
+                    HStack {
+                        // Espacio flexible reducido para mover el botón a la izquierda
+                        Spacer(minLength: 20)
+                        Button(action: {
+                            formType = .add
+                        }) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.white)
+                                    .frame(width: 50, height: 50) // Tamaño del botón circular
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color(red: 233/255, green: 233/255, blue: 233/255), lineWidth: 1) // Borde en color E9E9E9
+                                    )
+                                
+                                Image("mas") // Imagen de assets llamada "mas"
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 24, height: 24) // Tamaño reducido de la imagen
+                            }
                         }
+                        .padding(.trailing, 20) // Ajusta el padding a la derecha si es necesario
                     }
-                    .padding(.horizontal, 20) // Ajustar padding horizontal
-                    .padding(.bottom, 50) // Ajustar padding inferior para mover los recuadros hacia arriba
+                    
+                    // Contenido de la cuadrícula
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: 16) {
+                            ForEach(vm.items) { item in
+                                InventoryListItemView(item: item)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        formType = .edit(item)
+                                    }
+                            }
+                        }
+                        .padding(.horizontal, 20) // Ajustar padding horizontal
+                        .padding(.bottom, 50) // Ajustar padding inferior para mover los recuadros hacia arriba
+                    }
                 }
-            }
-            .background(Color(red: 248/255, green: 247/255, blue: 243/255))
+                .background(Color(red: 248/255, green: 247/255, blue: 243/255))
+            } // End of ScrollView
             .navigationBarItems(
-                leading: NavigationLink(destination: HomeView()) {
-                    Text("Home")
-                },
-                trailing: HStack {
-                    Button(action: {
+                trailing: Menu {
+                    Button("Edit Profile") {
                         showEditProfileSheet.toggle()
-                    }) {
-                        Text("Edit Profile")
                     }
-                    Button(action: {
+                    Button("Sign Out") {
                         showSignOutAlert = true
-                    }) {
-                        Text("Sign Out")
                     }
-                    .alert(isPresented: $showSignOutAlert) {
-                        Alert(
-                            title: Text("Sign Out"),
-                            message: Text("Are you sure you want to sign out?"),
-                            primaryButton: .destructive(Text("Sign Out")) {
-                                signOut()
-                            },
-                            secondaryButton: .cancel()
-                        )
-                    }
+                } label: {
+                    Image("menu")
+                        .resizable()
+                        .frame(width: 24, height: 24)
                 }
             )
+            .alert(isPresented: $showSignOutAlert) {
+                Alert(
+                    title: Text("Sign Out"),
+                    message: Text("Are you sure you want to sign out?"),
+                    primaryButton: .destructive(Text("Sign Out")) {
+                        signOut()
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
             .sheet(isPresented: $showEditProfileSheet) {
                 EditProfileView(userId: userId)
             }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03365BE02C63D30600DBBF9B /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03365BDF2C63D30600DBBF9B /* ImagePicker.swift */; };
 		03526FE72C470B3E00BF1CA2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03526FE62C470B3E00BF1CA2 /* GoogleService-Info.plist */; };
 		03526FE92C48435B00BF1CA2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03526FE82C48435B00BF1CA2 /* HomeView.swift */; };
 		0352702E2C49C35200BF1CA2 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 035270252C49C35000BF1CA2 /* SF-Pro-Rounded-Bold.otf */; };
@@ -69,6 +70,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03365BDF2C63D30600DBBF9B /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		03526FE62C470B3E00BF1CA2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		03526FE82C48435B00BF1CA2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		035270252C49C35000BF1CA2 /* SF-Pro-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Bold.otf"; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				8B74F3B62A7BC58B0046B6B0 /* InventoryListView.swift */,
 				8B74F3B82A7BC58B0046B6B0 /* InventoryFormView.swift */,
 				42D581872C01352B0062549C /* AuthView.swift */,
+				03365BDF2C63D30600DBBF9B /* ImagePicker.swift */,
 				42D5817F2C0132290062549C /* LoginView.swift */,
 				42D581852C0134B20062549C /* SignupView.swift */,
 				42B2E7132C14E69C00C09225 /* SignupViewModel.swift */,
@@ -457,6 +460,7 @@
 				42B2E7182C236C9600C09225 /* EditProfileView.swift in Sources */,
 				8B74F3A82A7BC58B0046B6B0 /* AppDelegate.swift in Sources */,
 				8BFA32042A767AFF00DAFBFB /* XCAInventoryTrackerApp.swift in Sources */,
+				03365BE02C63D30600DBBF9B /* ImagePicker.swift in Sources */,
 				42D581882C01352B0062549C /* AuthView.swift in Sources */,
 				42D581842C01334B0062549C /* String.swift in Sources */,
 				8B74F3BC2A7BC58B0046B6B0 /* InventoryFormVM.swift in Sources */,

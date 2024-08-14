@@ -41,7 +41,7 @@ struct XCAInventoryTrackerApp: App {
                 if appState.userID == "" {
                     AuthView()
                 } else {
-                    InventoryListView()
+                    HomeView()
                 }
             }
         }
