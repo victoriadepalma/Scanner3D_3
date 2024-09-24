@@ -19,8 +19,3 @@ AR Realtime Inventory Tracker visionOS & iOS App built with seamless Augmented R
 - Replace the bundleID for the App with your own.
 - Firebase iOS & visionOS Project, download `GoogleService-info.plist` to your Xcode project target.
 - As per Firebase SDK 10.13.0 (08/01/2023), you need to pass `open --env FIREBASE_SOURCE_FIRESTORE /path/to/project.xcodeproj` to be able to build on visionOS target
-
-## YouTube Tutorial
-You can check the full video tutorial on building this from scratch.
-
-[YouTube](https://youtu.be/DxVmeVf0Wwg)
