@@ -1,9 +1,12 @@
 
+
+
 //  SignupView.swift
 //  Login
 //
 //  Created by Victoria De Palma and Diana Silva
 //
+
 
 import SwiftUI
 import FirebaseAuth
@@ -17,7 +20,7 @@ struct SignupView: View {
     @AppStorage("uid") var userID: String = ""
     @Binding var currentShowingView: String
     @State private var showAlert = false
-    
+    @State private var passwordErrorText = ""
     
     
     
@@ -107,29 +110,43 @@ struct SignupView: View {
                 
                 
                 HStack {
-                    Image(systemName: "lock")
-                    SecureField("Password", text: $password)
+                                Image(systemName: "lock")
+                                SecureField("Password", text: $password)
+                                
+                                Spacer()
+                                
+                                if(password.count != 0) {
+                                    if !isValidPassword(password) {
+                                        Image(systemName: "xmark")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.red)
+                                    } else {
+                                        Image(systemName: "checkmark")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.green)
+                                    }
+                                }
+                            }
+                            .foregroundColor(.white)
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(lineWidth: 2)
+                                    .foregroundColor(.white)
+                            )
+                            .padding()
+                            
+                            if !isValidPassword(password) {
+                                Text("Password must be at least 6 characters long, contain 1 uppercase letter, and 1 special character.")
+                                    .font(.caption)
+                                    .foregroundColor(.red)
+                                    .padding(.top, 8)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.horizontal, 16) // Añade 16 puntos de padding a los lados
+                                    .padding(.bottom, 8)
+                            }
+              
                     
-                    Spacer()
-                    
-                    if(password.count != 0) {
-                        
-                        Image(systemName: isValidPassword(password) ? "checkmark" : "xmark")
-                            .fontWeight(.bold)
-                            .foregroundColor(isValidPassword(password) ? .green : .red)
-                    }
-                    
-                }
-                .foregroundColor(.white)
-                .padding()
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(lineWidth: 2)
-                        .foregroundColor(.white)
-                    
-                )
-                .padding()
-                
                 
                 Button(action: {
                     withAnimation {
