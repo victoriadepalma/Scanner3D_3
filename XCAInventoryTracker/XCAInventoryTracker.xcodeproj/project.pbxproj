@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03050E642CB3694C0064C0B4 /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03050E632CB3694C0064C0B4 /* Tutorial.swift */; };
 		03365BE02C63D30600DBBF9B /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03365BDF2C63D30600DBBF9B /* ImagePicker.swift */; };
 		03526FE72C470B3E00BF1CA2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03526FE62C470B3E00BF1CA2 /* GoogleService-Info.plist */; };
 		03526FE92C48435B00BF1CA2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03526FE82C48435B00BF1CA2 /* HomeView.swift */; };
@@ -70,6 +71,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03050E632CB3694C0064C0B4 /* Tutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
 		03365BDF2C63D30600DBBF9B /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		03526FE62C470B3E00BF1CA2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		03526FE82C48435B00BF1CA2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				42B2E7132C14E69C00C09225 /* SignupViewModel.swift */,
 				42B2E7172C236C9600C09225 /* EditProfileView.swift */,
 				03526FE82C48435B00BF1CA2 /* HomeView.swift */,
+				03050E632CB3694C0064C0B4 /* Tutorial.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42B2E7182C236C9600C09225 /* EditProfileView.swift in Sources */,
+				03050E642CB3694C0064C0B4 /* Tutorial.swift in Sources */,
 				8B74F3A82A7BC58B0046B6B0 /* AppDelegate.swift in Sources */,
 				8BFA32042A767AFF00DAFBFB /* XCAInventoryTrackerApp.swift in Sources */,
 				03365BE02C63D30600DBBF9B /* ImagePicker.swift in Sources */,
@@ -629,7 +633,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = XCAInventoryTracker/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera to scan objects.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -660,7 +667,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = XCAInventoryTracker/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera to scan objects.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

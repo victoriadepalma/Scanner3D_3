@@ -14,8 +14,11 @@ import PhotosUI
 import LinkPresentation
 
 struct InventoryFormView: View {
-
+    @StateObject var vl = InventoryListViewModel()
     @StateObject var vm = InventoryFormViewModel()
+    @AppStorage("uid") var userID: String = ""
+    @AppStorage("token") var token: String = ""
+    @StateObject private var appState = AppState()
     @Environment(\.dismiss) var dismiss
     @State private var qrCodeImage: IdentifiableImage?
     @State private var showShareSheet = false
@@ -42,7 +45,7 @@ struct InventoryFormView: View {
                     Button("Delete", role: .destructive) {
                         Task {
                             do {
-                                try await vm.deleteItem()
+                                try await vm.deleteItem(vl:vl,appState:appState,token:token,userID:userID)
                                 dismiss()
                             } catch {
                                 vm.error = error.localizedDescription
@@ -66,10 +69,15 @@ struct InventoryFormView: View {
 
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
-                    do {
-                        try vm.save()
-                        dismiss()
-                    } catch {}
+                    Task {
+                                            do {
+                                                try await vm.save(vl:vl,appState:appState,token:token,userID:userID) // Cambiado para usar 'Task'
+                                              
+                                                dismiss()
+                                            } catch {
+                                                print("Error al guardar: \(error.localizedDescription)") // Manejo de errores
+                                            }
+                                        }
                 }
                 .font(.custom("SFProRounded-Bold", size: 17))
                 .foregroundColor(.black)

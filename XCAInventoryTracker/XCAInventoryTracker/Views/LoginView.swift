@@ -12,6 +12,7 @@ import FirebaseAuth
 struct LoginView: View {
     @Binding var currentShowingView: String
     @AppStorage("uid") var userID: String = ""
+    @AppStorage("token") var token: String = ""
     
     @State private var email: String = ""
     @State private var password: String = ""
@@ -28,14 +29,14 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
-            Color.white.edgesIgnoringSafeArea(.all)
+            Color(red: 248/255, green: 247/255, blue: 243/255).edgesIgnoringSafeArea(.all)
             
             VStack {
                 HStack {
                     Text("Log In")
                         .font(.largeTitle)
                         .bold()
-                    
+                        .foregroundColor(Color(red: 209/255, green: 169/255, blue: 147/255))
                     Spacer()
                 }
                 .padding()
@@ -108,12 +109,32 @@ struct LoginView: View {
                                             }
                                             
                                             if let authResult = authResult {
-                                                print(authResult.user.uid)
-                                                withAnimation {
-                                                    userID = authResult.user.uid
+                                                let userId = authResult.user.uid
+                                                
+                                                // Get the ID token asynchronously
+                                                authResult.user.getIDToken { idToken, error in
+                                                    if let error = error {
+                                                        showErrorModal = true
+                                                        errorMessage = "Failed to retrieve ID token"
+                                                        return
+                                                    }
+                                                    
+                                                    if let idToken = idToken {
+                                                        print("User ID: \(userId)")
+                                                        print("ID Token: \(idToken)")
+                                                        
+                                                        withAnimation {
+                                                            userID = userId
+                                                            token = idToken
+                                                        }
+                                                        
+                                                        // Here you can also store the idToken if needed
+                                                        // e.g., UserDefaults.standard.set(idToken, forKey: "idToken")
+                                                    }
                                                 }
                                             }
                                         }
+
                                     }
                                 } label: {
                                     Text("Sign In")
@@ -124,7 +145,7 @@ struct LoginView: View {
                                         .padding()
                                         .background(
                                             RoundedRectangle(cornerRadius: 10)
-                                                .fill(Color.black)
+                                                .fill(Color(red: 239/255, green: 199/255, blue: 177/255))
                                         )
                                         .padding(.horizontal)
                                 }

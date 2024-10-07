@@ -11,14 +11,21 @@ import FirebaseFirestore
 struct InventoryListView: View {
     @StateObject var vm = InventoryListViewModel()
     @State private var items: [InventoryItem] = []
+    
     @State private var formType: FormType?
     @State private var showAuthView = false
+    @AppStorage("uid") var userID: String = ""
+    @AppStorage("token") var token: String = ""
     @StateObject private var appState = AppState()
     @State private var userId: String = ""
+    @State private var idToken: String = ""
+    @State private var showTutorial = false
     @State private var showEditProfileSheet = false
+    
     @State private var showSignOutAlert = false
     @State private var showMenu = false // State to show/hide the menu
 
+    
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible(), spacing: 16)
@@ -102,6 +109,7 @@ struct InventoryListView: View {
                         }
                     }
                     .background(Color(red: 248/255, green: 247/255, blue: 243/255))
+                    .frame(minHeight: UIScreen.main.bounds.height)
                 }
                 .navigationBarItems(
                     trailing: Button(action: {
@@ -128,6 +136,9 @@ struct InventoryListView: View {
                 .sheet(isPresented: $showEditProfileSheet) {
                     EditProfileView(userId: userId)
                 }
+                .sheet(isPresented: $showTutorial) {
+                                Tutorial()
+                            }
                 .sheet(item: $formType) { type in
                     NavigationStack {
                         InventoryFormView(vm: .init(formType: type))
@@ -140,22 +151,44 @@ struct InventoryListView: View {
                         AuthView()
                     }
                 }
-                .onAppear {
+                .onAppear() {
+
                     Task {
                         do {
+                            print("ESTOY ENTRANDO")
                             userId = try await fetchUserId()
-                            try await vm.listenToItems(appState: appState, userId: userId)
-                            self.items = Array(vm.items.prefix(2))
+                            idToken=try await fetchUserToken()
+                            try await vm.fetchItems(appState: appState, userId: userId, token: idToken)
+                            try await vm.listenToItems(appState: appState, userId: userId, token: idToken)
+                            print("YA ENTRE")
+                            self.items = vm.items
                         } catch {
                             print("Error fetching user ID or items: \(error.localizedDescription)")
                         }
                     }
                 }
+                .onDisappear(){
+                    Task {
+                        do {
+                            print("ESTOY SALIENDO")
+                            vm.stopPolling()
+                            
+            
+                        } catch {
+                            print("Error fetching user ID or items: \(error.localizedDescription)")
+                        }
+                    }
+                }
+           
             }
+          
+                
+            
+            
             .navigationBarTitleDisplayMode(.inline)
 
             if showMenu {
-                SlideInMenuView(showMenu: $showMenu, showEditProfileSheet: $showEditProfileSheet, showSignOutAlert: $showSignOutAlert)
+                SlideInMenuView(showMenu: $showMenu, showEditProfileSheet: $showEditProfileSheet,showTutorial: $showTutorial,showSignOutAlert: $showSignOutAlert)
                     .frame(width: UIScreen.main.bounds.width * 0.75, height: UIScreen.main.bounds.height)
                     .transition(.move(edge: .trailing))
                     .gesture(
@@ -173,10 +206,19 @@ struct InventoryListView: View {
     }
 
     private func fetchUserId() async throws -> String {
-        guard let currentUser = Auth.auth().currentUser else {
-            throw FirebaseError.noUserFound
-        }
-        return currentUser.uid
+//        guard let currentUser = Auth.auth().currentUser else {
+//            throw FirebaseError.noUserFound
+//        }
+//        return currentUser.uid
+        return userID
+    }
+    
+    private func fetchUserToken() async throws -> String {
+//        guard let currentUser = Auth.auth().currentUser else {
+//            throw FirebaseError.noUserFound
+//        }
+//        return currentUser.uid
+        return token
     }
 
     func signOut() {
@@ -185,6 +227,8 @@ struct InventoryListView: View {
             try firebaseAuth.signOut()
             withAnimation {
                 appState.userID = ""
+                userID = ""
+                token = ""
             }
         } catch let signOutError as NSError {
             print("Error signing out: \(signOutError.localizedDescription)")
@@ -195,8 +239,9 @@ struct InventoryListView: View {
 struct SlideInMenuView: View {
     @Binding var showMenu: Bool
     @Binding var showEditProfileSheet: Bool
+    @Binding var showTutorial: Bool
     @Binding var showSignOutAlert: Bool
-
+    @AppStorage("token") var token: String = ""
     @State private var profileImageURL: URL?
     @State private var firstName: String = ""
     @State private var lastName: String = ""
@@ -296,9 +341,10 @@ struct SlideInMenuView: View {
                 }
                 
                 Button(action: {
-                    // Action for How to Use?
+                    // Acción para mostrar el tutorial
                     withAnimation {
                         showMenu.toggle()
+                        showTutorial = true
                     }
                 }) {
                     HStack {
@@ -356,41 +402,82 @@ struct SlideInMenuView: View {
         .padding(.top, 50)
         .padding(.trailing, -UIScreen.main.bounds.width * 0.25)
         .onAppear {
-            fetchProfileImageURL()
-            fetchUserProfile()
+            Task {
+                do {
+                    try await fetchProfileImageURL()
+                    try await fetchUserProfile()
+                } catch {
+                    print("Error fetching user profile or image URL: \(error.localizedDescription)")
+                }
+            }
         }
+    }
+    private func fetchUserToken() async throws -> String {
+//        guard let currentUser = Auth.auth().currentUser else {
+//            throw FirebaseError.noUserFound
+//        }
+//        return currentUser.uid
+        return token
     }
     
     private func fetchProfileImageURL() {
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        let db = Firestore.firestore()
-        let userDocRef = db.collection("users").document(userId)
-        
-        userDocRef.getDocument { document, error in
-            if let document = document, document.exists {
-                let data = document.data()
-                self.profileImageURL = URL(string: data?["profileImageURL"] as? String ?? "")
-            } else {
-                print("Document does not exist or error: \(error?.localizedDescription ?? "Unknown error")")
-            }
-        }
+//        guard let userId = Auth.auth().currentUser?.uid else { return }
+//        print(userId)
+//        let db = Firestore.firestore()
+//        let userDocRef = db.collection("users").document(userId)
+//        
+//        userDocRef.getDocument { document, error in
+//            if let document = document, document.exists {
+//                let data = document.data()
+//                self.profileImageURL = URL(string: data?["profileImageURL"] as? String ?? "")
+//            } else {
+//                print("Document does not exist or error: \(error?.localizedDescription ?? "Unknown error")")
+//            }
+//        }
     }
     
-    private func fetchUserProfile() {
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        let db = Firestore.firestore()
-        let userDocRef = db.collection("users").document(userId)
+    private func fetchUserProfile() async throws {
+        print("Hola", token)
         
-        userDocRef.getDocument { document, error in
-            if let document = document, document.exists {
-                let data = document.data()
-                self.firstName = data?["firstName"] as? String ?? ""
-                self.lastName = data?["lastName"] as? String ?? ""
-                self.email = data?["email"] as? String ?? "" // Fetch and set the email
-            } else {
-                print("Document does not exist or error: \(error?.localizedDescription ?? "Unknown error")")
-            }
+        // Fetch user profile from the API
+        let urlString = "https://scanner3d-backend.vercel.app/api/users"
+        guard let url = URL(string: urlString) else {
+            throw URLError(.badURL)
         }
+
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization") // Set the token in the header
+        request.httpMethod = "GET"
+
+        // Perform the network request
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        // Check for a successful response
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch user profile"])
+        }
+
+        // Decode the JSON response into a User model
+        do {
+            let userProfile = try JSONDecoder().decode(UserProfile.self, from: data)
+            self.firstName = userProfile.firstname
+            self.lastName = userProfile.lastname
+            self.email = userProfile.email
+            print("IMAGE",userProfile.profileImageUrl)
+            self.profileImageURL = URL(string: userProfile.profileImageUrl as? String ?? "")
+//            self.profileImageURL = userProfile.profileImageURL
+        } catch {
+            print("Error decoding: \(error)") // This prints the specific error encountered
+            throw error // Rethrow the error after printing it
+        }
+    }
+
+    // Example UserProfile model
+    struct UserProfile: Codable {
+        let firstname: String
+        let lastname: String
+        let email: String
+        let profileImageUrl: String?
     }
 
     private var profileImageDiameter: CGFloat {

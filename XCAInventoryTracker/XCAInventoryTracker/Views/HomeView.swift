@@ -11,6 +11,8 @@ import FirebaseAuth
 struct HomeView: View {
     @StateObject var inventoryVM = InventoryListViewModel()
     @State private var appState = AppState()
+    @AppStorage("uid") var userID: String = ""
+    @AppStorage("token") var token: String = ""
     
     var body: some View {
         NavigationView {
@@ -68,7 +70,6 @@ struct HomeView: View {
             .onAppear {
                 for family in UIFont.familyNames.sorted() {
                     let names = UIFont.fontNames(forFamilyName: family)
-                    print("Family: \(family) Font names: \(names)")
                 }
                 Task {
                     do {
@@ -76,7 +77,7 @@ struct HomeView: View {
                             throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No current user found"])
                         }
                         let userId = currentUser.uid
-                        try await inventoryVM.listenToItems(appState: appState, userId: userId)
+                        try await inventoryVM.listenToItems(appState: appState, userId: userID, token:token)
                     } catch {
                         print("Error fetching items: \(error.localizedDescription)")
                     }

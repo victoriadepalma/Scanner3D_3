@@ -13,7 +13,7 @@ import FirebaseStorage
 struct EditProfileView: View {
     @StateObject private var viewModel = EditProfileViewModel()
     @Environment(\.dismiss) private var dismiss
-    
+    @AppStorage("token") var token: String = ""
     @State private var firstName: String = ""
     @State private var lastName: String = ""
     @State private var password: String = ""
@@ -278,6 +278,7 @@ struct EditProfileView: View {
                 .navigationBarTitleDisplayMode(.inline) // Set title display mode to inline
                 .onAppear {
                     viewModel.loadUserData(userId: userId) { user in
+                        print("USER",user)
                         firstName = user?.firstName ?? ""
                         lastName = user?.lastName ?? ""
                         email = user?.email ?? "" // Set the email field
@@ -319,25 +320,64 @@ struct EditProfileView_Previews: PreviewProvider {
 
 
 class EditProfileViewModel: ObservableObject {
+    @AppStorage("token") var token: String = ""
     let db = Firestore.firestore()
-    
     func loadUserData(userId: String, completion: @escaping (User?) -> Void) {
-        db.collection("users").document(userId).getDocument { (snapshot, error) in
+        let urlString = "https://scanner3d-backend.vercel.app/api/users" // Assuming you're fetching by userId
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization") // Set the token in the header
+        request.httpMethod = "GET"
+        
+        // Perform the network request
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            // Handle error
             if let error = error {
-                print("Error getting user data: \(error)")
+                print("Error fetching user data: \(error)")
                 completion(nil)
-            } else if let userData = snapshot?.data() {
+                return
+            }
+            
+            // Check for a successful response
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                print("Failed to fetch user profile")
+                completion(nil)
+                return
+            }
+            
+            // Decode the JSON response into a User model
+            guard let data = data else {
+                print("No data received")
+                completion(nil)
+                return
+            }
+            
+            do {
+                let userProfile = try JSONDecoder().decode(UserProfile.self, from: data)
                 let user = User(
-                    email: userData["email"] as? String, // Load email
-                    firstName: userData["firstName"] as? String,
-                    lastName: userData["lastName"] as? String,
-                    profileImageURL: userData["profileImageURL"] as? String
+                    email: userProfile.email, // Directly access properties
+                    firstName: userProfile.firstname,
+                    lastName: userProfile.lastname,
+                    profileImageURL: userProfile.profileImageUrl
                 )
                 completion(user)
-            } else {
+            } catch {
+                print("Error decoding: \(error)") // This prints the specific error encountered
                 completion(nil)
             }
-        }
+        }.resume() // Start the data task
+    }
+    
+    // Example UserProfile model
+    struct UserProfile: Codable {
+        let email: String
+        let firstname: String
+        let lastname: String
+        let profileImageUrl: String?
     }
     
     struct PasswordValidationResult {
@@ -369,6 +409,103 @@ class EditProfileViewModel: ObservableObject {
     }
     
     func updateProfile(
+        userId: String,
+        firstName: String,
+        lastName: String,
+        password: String?,
+        profileImageData: Data?,
+        completion: @escaping (Bool) -> Void
+    ) {
+        let urlString = "https://scanner3d-backend.vercel.app/api/users"
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            completion(false) // Call completion with failure
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        var parameters: [String: String] = [
+            "firstname": firstName,
+            "lastname": lastName
+        ]
+
+        // Function to perform the network request
+        func performRequest(withBody body: [String: String]) {
+            do {
+                let jsonData = try JSONEncoder().encode(body)
+                request.httpBody = jsonData
+                
+                // Make a local copy of the request
+                let requestCopy = request
+
+                // Perform the network request
+                Task {
+                    do {
+                        let (data, response) = try await URLSession.shared.data(for: requestCopy)
+
+                        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                            print("Failed to update profile: \(response), \(data)")
+                            completion(false)
+                            return
+                        }
+
+                        completion(true) // Successfully updated
+                    } catch {
+                        print("Error during network request: \(error.localizedDescription)")
+                        completion(false)
+                    }
+                }
+            } catch {
+                print("Error encoding JSON: \(error.localizedDescription)")
+                completion(false)
+            }
+        }
+
+        // If there's profile image data, upload it first
+        if let imageData = profileImageData {
+            let storage = Storage.storage()
+            let storageRef = storage.reference().child("profile_images/\(userId).jpg")
+            let uploadTask = storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+                if let error = error {
+                    print("Error uploading image: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+
+                storageRef.downloadURL { (url, error) in
+                    if let error = error {
+                        print("Error getting image URL: \(error.localizedDescription)")
+                        completion(false)
+                        return
+                    }
+
+                    if let url = url {
+                        parameters["profileImageUrl"] = url.absoluteString
+                    }
+
+                    // Proceed with the request
+                    performRequest(withBody: parameters)
+                }
+            }
+        } else {
+            // No image data, proceed directly with the request
+            performRequest(withBody: parameters)
+        }
+        
+        if let password = password {
+             Auth.auth().currentUser?.updatePassword(to: password) { error in
+                 if let error = error {
+                     print("Error updating password: \(error.localizedDescription)")
+                 }
+             }
+         }
+    }
+
+    func updateProfile2(
         userId: String,
         firstName: String,
         lastName: String,
@@ -427,8 +564,16 @@ class EditProfileViewModel: ObservableObject {
                 }
             }
         }
+    
+}
+    // UserUpdate struct definition
+    struct UserUpdate: Codable {
+//        let firstname: String
+//        let lastname: String
+        let profileImageURL: String // Optional if used
     }
 }
+
 
 struct User {
     let email: String? // Added email property
