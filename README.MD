@@ -1,6 +1,5 @@
 # iOS & VisionOS AR Realtime Inventory Tracker App 
 
-![alt text](https://i.ibb.co/sQ5y87D/promo.png)
 
 AR Realtime Inventory Tracker visionOS & iOS App built with seamless Augmented Reality Integration
 
